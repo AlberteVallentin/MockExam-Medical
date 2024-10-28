@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import dat.security.exceptions.ApiException;
+import dat.exceptions.ApiException;
 import io.javalin.http.Context;
 
 import java.io.IOException;
@@ -14,49 +14,53 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Purpose: Utility class to read properties from a file
- * Author: Thomas Hartmann
+ * Purpose: Utility class for common functionality
  */
 public class Utils {
-    public static void main(String[] args) {
-        System.out.println(getPropertyValue("db.name", "properties-from-pom.properties"));
-    }
-    public static String getPropertyValue(String propName, String resourceName)  {
-        // REMEMBER TO BUILD WITH MAVEN FIRST. Read the property file if not deployed (else read system vars instead)
-        // Read from ressources/config.properties or from pom.xml depending on the ressourceName
+
+    public static String getPropertyValue(String propName, String resourceName) throws ApiException {
         try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(resourceName)) {
+            if (is == null) {
+                throw new ApiException(500, String.format("Resource %s not found", resourceName));
+            }
+
             Properties prop = new Properties();
             prop.load(is);
 
             String value = prop.getProperty(propName);
             if (value != null) {
-                return value.trim();  // Trim whitespace
-            } else {
-                throw new ApiException(500, String.format("Property %s not found in %s", propName, resourceName));
+                return value.trim();
             }
+            throw new ApiException(500, String.format("Property %s not found in %s", propName, resourceName));
+
         } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new ApiException(500, String.format("Could not read property %s. Did you remember to build the project with MAVEN?", propName));
+            throw new ApiException(500, String.format("Could not read property %s: %s", propName, ex.getMessage()));
         }
     }
 
     public ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // Ignore unknown properties in JSON
-        objectMapper.registerModule(new JavaTimeModule()); // Serialize and deserialize java.time objects
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.registerModule(new JavaTimeModule());
         objectMapper.writer(new DefaultPrettyPrinter());
         return objectMapper;
     }
 
     public static String convertToJsonMessage(Context ctx, String property, String message) {
         Map<String, String> msgMap = new HashMap<>();
-        msgMap.put(property, message);  // Put the message in the map
-        msgMap.put("status", String.valueOf(ctx.status()));  // Put the status in the map
+        msgMap.put(property, message);
+        msgMap.put("status", String.valueOf(ctx.status()));
+        msgMap.put("timestamp", getCurrentTimestamp());
+
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.writeValueAsString(msgMap);  // Convert the map to JSON
+            return objectMapper.writeValueAsString(msgMap);
         } catch (Exception e) {
-            return "{\"error\": \"Could not convert  message to JSON\"}";
+            return String.format("{\"error\": \"Could not convert message to JSON\", \"message\": \"%s\"}", message);
         }
+    }
+
+    public static String getCurrentTimestamp() {
+        return java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
     }
 }

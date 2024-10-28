@@ -1,8 +1,6 @@
 package dat.config;
 
-import dat.entities.*;
-import dat.security.entities.Role;
-import dat.security.entities.User;
+import dat.exceptions.ApiException;
 import dat.utils.Utils;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
@@ -13,7 +11,6 @@ import org.hibernate.service.ServiceRegistry;
 import java.util.Properties;
 
 public class HibernateConfig {
-
     private static EntityManagerFactory emf;
     private static EntityManagerFactory emfTest;
     private static Boolean isTest = false;
@@ -33,42 +30,43 @@ public class HibernateConfig {
     }
 
     public static EntityManagerFactory getEntityManagerFactoryForTest() {
-        if (emfTest == null){
+        if (emfTest == null) {
             setTest(true);
-            emfTest = createEMF(getTest());  // No DB needed for test
+            emfTest = createEMF(getTest());
         }
         return emfTest;
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        //configuration.addAnnotatedClass(User.class);
-
+        // Add the entity classes here
+        //configuration.addAnnotatedClass(Plant.class);
+        //configuration.addAnnotatedClass(Reseller.class);
     }
 
     private static EntityManagerFactory createEMF(boolean forTest) {
         try {
             Configuration configuration = new Configuration();
             Properties props = new Properties();
-            // Set the properties
+
             setBaseProperties(props);
             if (forTest) {
                 props = setTestProperties(props);
             } else if (System.getenv("DEPLOYED") != null) {
-                setDeployedProperties(props);
+                props = setDeployedProperties(props);
             } else {
                 props = setDevProperties(props);
             }
+
             configuration.setProperties(props);
             getAnnotationConfiguration(configuration);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
+
             SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
-            EntityManagerFactory emf = sf.unwrap(EntityManagerFactory.class);
-            return emf;
-        }
-        catch (Throwable ex) {
+            return sf.unwrap(EntityManagerFactory.class);
+        } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
@@ -82,7 +80,6 @@ public class HibernateConfig {
         props.put("hibernate.show_sql", "true");
         props.put("hibernate.format_sql", "true");
         props.put("hibernate.use_sql_comments", "true");
-        // UTF-8 configuration
         props.put("hibernate.connection.CharSet", "utf8");
         props.put("hibernate.connection.characterEncoding", "utf8");
         props.put("hibernate.connection.useUnicode", "true");
@@ -90,11 +87,21 @@ public class HibernateConfig {
         return props;
     }
 
+    private static Properties setDevProperties(Properties props) throws ApiException {
+        String DBName = Utils.getPropertyValue("DB_NAME", "config.properties");
+        String connectionString = "jdbc:postgresql://localhost:5432/" + DBName;
+        connectionString += "?characterEncoding=utf8&useUnicode=true";
+
+        props.put("hibernate.connection.url", connectionString);
+        props.put("hibernate.connection.username", "postgres");
+        props.put("hibernate.connection.password", "postgres");
+        return props;
+    }
+
     private static Properties setDeployedProperties(Properties props) {
         String DBName = System.getenv("DB_NAME");
         String connectionString = System.getenv("CONNECTION_STR") + DBName;
 
-        // Add UTF-8 parameters to connection string
         if (!connectionString.contains("?")) {
             connectionString += "?";
         } else {
@@ -105,19 +112,6 @@ public class HibernateConfig {
         props.setProperty("hibernate.connection.url", connectionString);
         props.setProperty("hibernate.connection.username", System.getenv("DB_USERNAME"));
         props.setProperty("hibernate.connection.password", System.getenv("DB_PASSWORD"));
-        return props;
-    }
-
-    private static Properties setDevProperties(Properties props) {
-        String DBName = Utils.getPropertyValue("DB_NAME", "config.properties");
-        String connectionString = "jdbc:postgresql://localhost:5432/" + DBName;
-
-        // Add UTF-8 parameters to connection string
-        connectionString += "?characterEncoding=utf8&useUnicode=true";
-
-        props.put("hibernate.connection.url", connectionString);
-        props.put("hibernate.connection.username", "postgres");
-        props.put("hibernate.connection.password", "postgres");
         return props;
     }
 
