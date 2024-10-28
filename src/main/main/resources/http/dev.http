@@ -1,0 +1,22 @@
+### Test getting all plants
+GET http://localhost:7070/api/plants
+Accept: application/json
+
+### Test getting plant by ID 1
+GET http://localhost:7070/api/plants/1
+Accept: application/json
+
+### Test getting plants by type 'Rose'
+GET http://localhost:7070/api/plants/type/Rose
+Accept: application/json
+
+### Test creating a new plant
+POST http://localhost:7070/api/plants
+Content-Type: application/json
+
+{
+  "planttype": "Rose",
+  "name": "Gallicanae",
+  "maxheight": 350,
+  "price": 299.0
+}

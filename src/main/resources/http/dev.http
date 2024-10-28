@@ -1,0 +1,51 @@
+
+### Test API health
+GET {{url}}/auth/test
+
+
+### Register new user
+POST {{url}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@admin.dk",
+  "password": "test123",
+  "roleType": "USER"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+
+
+### Login user
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@admin.dk",
+  "password": "test123"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+
+### Add admin role to user
+POST {{url}}/auth/user/addrole
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "role": "ADMIN"
+}
+
+### Reset token
+GET {{url}}/auth/test/
+
+> {%
+    client.global.set("jwt_token", null);
+    console.log("JWT Token:", client.global.get("jwt_token"));
+%}
+
+
+
