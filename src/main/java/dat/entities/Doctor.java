@@ -6,25 +6,18 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entity representing a Doctor in the medical clinic system
- * Includes automatic timestamp management for creation and updates
- */
 @Entity
 @Table(name = "doctors")
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = "appointments")
 public class Doctor {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -45,30 +38,25 @@ public class Doctor {
     @Column(nullable = false)
     private Speciality speciality;
 
-    // Automatically managed temporal fields
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    // One-to-Many relationship with Appointment
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Appointment> appointments = new ArrayList<>();
 
-    /**
-     * Constructor for creating a doctor from DTO
-     * @param dto The DoctorDTO containing the data
-     */
+    // Add constructor that takes DoctorDTO
     public Doctor(DoctorDTO dto) {
         updateFromDTO(dto);
     }
 
-    /**
-     * Update entity data from DTO
-     * @param dto The DoctorDTO containing the new data
-     */
+    // Update the updateFromDTO method to handle null id
     public void updateFromDTO(DoctorDTO dto) {
+        if (dto.getId() != null) {
+            this.id = dto.getId();
+        }
         this.name = dto.getName();
         this.dateOfBirth = dto.getDateOfBirth();
         this.yearOfGraduation = dto.getYearOfGraduation();
@@ -76,40 +64,24 @@ public class Doctor {
         this.speciality = dto.getSpeciality();
     }
 
-    /**
-     * Helper method to add an appointment
-     * Manages both sides of the bidirectional relationship
-     * @param appointment The appointment to add
-     */
-    public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
-        appointment.setDoctor(this);
-    }
-
-    /**
-     * Helper method to remove an appointment
-     * Manages both sides of the bidirectional relationship
-     * @param appointment The appointment to remove
-     */
-    public void removeAppointment(Appointment appointment) {
-        appointments.remove(appointment);
-        appointment.setDoctor(null);
-    }
-
-    /**
-     * Sets the creation timestamp before persisting
-     */
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
 
-    /**
-     * Updates the modification timestamp before updating
-     */
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+        appointment.setDoctor(this);
+    }
+
+    public void removeAppointment(Appointment appointment) {
+        appointments.remove(appointment);
+        appointment.setDoctor(null);
     }
 }

@@ -1110,3 +1110,248 @@ io.javalin.validation.ValidationException: null
 2024-10-29 11:42:34 [main] INFO  io.javalin.Javalin - Javalin started in 61ms \o/
 2024-10-29 11:42:34 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
 2024-10-29 11:42:34 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 16:42:44 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 16:42:44 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 16:42:44 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 16:42:44 [main] INFO  o.t.utility.ImageNameSubstitutor - Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2024-10-29 16:42:44 [main] INFO  o.t.d.DockerClientProviderStrategy - Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2024-10-29 16:42:44 [main] INFO  o.t.d.DockerClientProviderStrategy - Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2024-10-29 16:42:44 [main] INFO  o.testcontainers.DockerClientFactory - Docker host IP address is localhost
+2024-10-29 16:42:44 [main] INFO  o.testcontainers.DockerClientFactory - Connected to docker: 
+  Server Version: 25.0.3
+  API Version: 1.44
+  Operating System: Docker Desktop
+  Total Memory: 7840 MB
+2024-10-29 16:42:44 [main] INFO  tc.testcontainers/ryuk:0.4.0 - Creating container for image: testcontainers/ryuk:0.4.0
+2024-10-29 16:42:44 [main] INFO  o.t.utility.RegistryAuthLocator - Credential helper/store (docker-credential-desktop) does not have credentials for https://index.docker.io/v1/
+2024-10-29 16:42:45 [main] INFO  tc.testcontainers/ryuk:0.4.0 - Container testcontainers/ryuk:0.4.0 is starting: f06b93cc0e93df6e6c903269f2db88a2ce1769a79e1cb2f4ebf9652502c15216
+2024-10-29 16:42:45 [main] INFO  tc.testcontainers/ryuk:0.4.0 - Container testcontainers/ryuk:0.4.0 started in PT0.602316S
+2024-10-29 16:42:45 [main] INFO  o.t.utility.RyukResourceReaper - Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2024-10-29 16:42:45 [main] INFO  o.testcontainers.DockerClientFactory - Checking the system...
+2024-10-29 16:42:45 [main] INFO  o.testcontainers.DockerClientFactory - ✔︎ Docker server version should be at least 1.6.0
+2024-10-29 16:42:45 [main] INFO  tc.postgres:15.3-alpine3.18 - Creating container for image: postgres:15.3-alpine3.18
+2024-10-29 16:42:45 [main] INFO  tc.postgres:15.3-alpine3.18 - Container postgres:15.3-alpine3.18 is starting: c027ea9558364a5b8f23b12122320d533a568eabae18223bff932c698df205fa
+2024-10-29 16:42:46 [main] INFO  tc.postgres:15.3-alpine3.18 - Container postgres:15.3-alpine3.18 started in PT0.935799S
+2024-10-29 16:42:46 [main] INFO  tc.postgres:15.3-alpine3.18 - Container is started (JDBC URL: jdbc:postgresql://localhost:50301/test?loggerLevel=OFF)
+2024-10-29 16:42:46 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.testcontainers.jdbc.ConnectionWrapper@5633ed82
+2024-10-29 16:42:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 16:42:46 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 16:42:46 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2024-10-29 16:42:46 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "appointments" does not exist, skipping
+2024-10-29 16:42:46 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2024-10-29 16:42:46 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "appointments" does not exist, skipping
+2024-10-29 16:42:46 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2024-10-29 16:42:46 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "doctors" does not exist, skipping
+2024-10-29 16:42:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-10-29 16:42:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-10-29 16:51:41 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 16:51:41 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 16:51:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 16:51:41 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4218500f
+2024-10-29 16:51:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 16:51:41 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 16:52:06 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 16:52:06 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 16:52:06 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 16:52:06 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@355e34c7
+2024-10-29 16:52:06 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 16:52:06 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 16:52:07 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 16:52:07 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 16:52:07 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-10-29 16:52:07 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@6eede35e{/api,null,AVAILABLE}
+2024-10-29 16:52:07 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@44faa4f2{HTTP/1.1, (http/1.1)}{0.0.0.0:7070}
+2024-10-29 16:52:07 [main] INFO  org.eclipse.jetty.server.Server - Started Server@24a04257{STARTING}[11.0.23,sto=0] @1061ms
+2024-10-29 16:52:07 [main] INFO  io.javalin.Javalin - Javalin started in 55ms \o/
+2024-10-29 16:52:07 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
+2024-10-29 16:52:07 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 16:55:18 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 16:55:18 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 16:55:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 16:55:18 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7642df8f
+2024-10-29 16:55:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 16:55:18 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 16:55:18 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 16:55:18 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 16:55:19 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-10-29 16:55:19 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@30159886{/api,null,AVAILABLE}
+2024-10-29 16:55:19 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@79be91eb{HTTP/1.1, (http/1.1)}{0.0.0.0:7070}
+2024-10-29 16:55:19 [main] INFO  org.eclipse.jetty.server.Server - Started Server@9e30f9a{STARTING}[11.0.23,sto=0] @1038ms
+2024-10-29 16:55:19 [main] INFO  io.javalin.Javalin - Javalin started in 66ms \o/
+2024-10-29 16:55:19 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
+2024-10-29 16:55:19 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 16:58:59 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 16:58:59 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 16:58:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 16:58:59 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3668d4
+2024-10-29 16:58:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 16:58:59 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 16:59:00 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 16:59:00 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 16:59:00 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-10-29 16:59:00 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@f03ee8f{/api,null,AVAILABLE}
+2024-10-29 16:59:00 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@7f12094d{HTTP/1.1, (http/1.1)}{0.0.0.0:7070}
+2024-10-29 16:59:00 [main] INFO  org.eclipse.jetty.server.Server - Started Server@7b95bdb0{STARTING}[11.0.23,sto=0] @1021ms
+2024-10-29 16:59:00 [main] INFO  io.javalin.Javalin - Javalin started in 53ms \o/
+2024-10-29 16:59:00 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
+2024-10-29 16:59:00 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 17:03:11 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 17:03:11 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 17:03:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 17:03:11 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2cc3ad05
+2024-10-29 17:03:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 17:03:11 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 17:03:11 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 17:03:11 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 17:03:11 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-10-29 17:03:11 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@18c7f6b5{/api,null,AVAILABLE}
+2024-10-29 17:03:11 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@54489296{HTTP/1.1, (http/1.1)}{0.0.0.0:7070}
+2024-10-29 17:03:11 [main] INFO  org.eclipse.jetty.server.Server - Started Server@4af7dd6a{STARTING}[11.0.23,sto=0] @1032ms
+2024-10-29 17:03:11 [main] INFO  io.javalin.Javalin - Javalin started in 54ms \o/
+2024-10-29 17:03:11 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
+2024-10-29 17:03:11 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 17:09:34 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 17:09:34 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 17:09:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 17:09:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@c2db68f
+2024-10-29 17:09:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 17:09:35 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 17:09:35 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 17:09:35 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 17:09:35 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-10-29 17:09:35 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@76e6c070{/api,null,AVAILABLE}
+2024-10-29 17:09:35 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@1796b2d4{HTTP/1.1, (http/1.1)}{0.0.0.0:7070}
+2024-10-29 17:09:35 [main] INFO  org.eclipse.jetty.server.Server - Started Server@1600a8a2{STARTING}[11.0.23,sto=0] @997ms
+2024-10-29 17:09:35 [main] INFO  io.javalin.Javalin - Javalin started in 57ms \o/
+2024-10-29 17:09:35 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
+2024-10-29 17:09:35 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 17:10:06 [JettyServerThreadPool-23] ERROR d.c.impl.DoctorControllerDB - API Error in read: Doctor not found with id: 999
+2024-10-29 17:10:57 [JettyServerThreadPool-20] ERROR d.c.impl.DoctorControllerDB - API Error in readBySpeciality: No doctors found with speciality: PEDIATRICS
+2024-10-29 17:12:56 [JettyServerThreadPool-27] ERROR d.c.impl.DoctorControllerDB - Unexpected error in create
+io.javalin.validation.ValidationException: null
+	at io.javalin.validation.BaseValidator$get$1.invoke(BaseValidator.kt:72)
+	at io.javalin.validation.BaseValidator$get$1.invoke(BaseValidator.kt:72)
+	at io.javalin.validation.BaseValidator.getOrThrow(BaseValidator.kt:76)
+	at io.javalin.validation.BodyValidator.getOrThrow(BodyValidator.kt:23)
+	at io.javalin.validation.BaseValidator.get(BaseValidator.kt:72)
+	at io.javalin.validation.BodyValidator.get(BodyValidator.kt:20)
+	at dat.controllers.impl.DoctorControllerDB.validateEntity(DoctorControllerDB.java:257)
+	at dat.controllers.impl.DoctorControllerDB.create(DoctorControllerDB.java:79)
+	at io.javalin.router.Endpoint.handle(Endpoint.kt:52)
+	at io.javalin.router.ParsedEndpoint.handle(ParsedEndpoint.kt:15)
+	at io.javalin.http.servlet.DefaultTasks.HTTP$lambda$9$lambda$7$lambda$6(DefaultTasks.kt:52)
+	at io.javalin.http.servlet.JavalinServlet.handleTask(JavalinServlet.kt:99)
+	at io.javalin.http.servlet.JavalinServlet.handleSync(JavalinServlet.kt:64)
+	at io.javalin.http.servlet.JavalinServlet.handle(JavalinServlet.kt:50)
+	at io.javalin.http.servlet.JavalinServlet.service(JavalinServlet.kt:30)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:587)
+	at io.javalin.jetty.JavalinJettyServlet.service(JavalinJettyServlet.kt:52)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:587)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:764)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:529)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:221)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1580)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:221)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1381)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:176)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:484)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1553)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:174)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1303)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:129)
+	at org.eclipse.jetty.server.handler.StatisticsHandler.handle(StatisticsHandler.java:173)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:122)
+	at org.eclipse.jetty.server.Server.handle(Server.java:563)
+	at org.eclipse.jetty.server.HttpChannel$RequestDispatchable.dispatch(HttpChannel.java:1598)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:753)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:501)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:287)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:314)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:100)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:53)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:421)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:390)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:277)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:199)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:411)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:969)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1194)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1149)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2024-10-29 17:13:55 [JettyServerThreadPool-26] ERROR d.c.impl.DoctorControllerDB - Unexpected error in create
+io.javalin.validation.ValidationException: null
+	at io.javalin.validation.BaseValidator$get$1.invoke(BaseValidator.kt:72)
+	at io.javalin.validation.BaseValidator$get$1.invoke(BaseValidator.kt:72)
+	at io.javalin.validation.BaseValidator.getOrThrow(BaseValidator.kt:76)
+	at io.javalin.validation.BodyValidator.getOrThrow(BodyValidator.kt:23)
+	at io.javalin.validation.BaseValidator.get(BaseValidator.kt:72)
+	at io.javalin.validation.BodyValidator.get(BodyValidator.kt:20)
+	at dat.controllers.impl.DoctorControllerDB.validateEntity(DoctorControllerDB.java:257)
+	at dat.controllers.impl.DoctorControllerDB.create(DoctorControllerDB.java:79)
+	at io.javalin.router.Endpoint.handle(Endpoint.kt:52)
+	at io.javalin.router.ParsedEndpoint.handle(ParsedEndpoint.kt:15)
+	at io.javalin.http.servlet.DefaultTasks.HTTP$lambda$9$lambda$7$lambda$6(DefaultTasks.kt:52)
+	at io.javalin.http.servlet.JavalinServlet.handleTask(JavalinServlet.kt:99)
+	at io.javalin.http.servlet.JavalinServlet.handleSync(JavalinServlet.kt:64)
+	at io.javalin.http.servlet.JavalinServlet.handle(JavalinServlet.kt:50)
+	at io.javalin.http.servlet.JavalinServlet.service(JavalinServlet.kt:30)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:587)
+	at io.javalin.jetty.JavalinJettyServlet.service(JavalinJettyServlet.kt:52)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:587)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:764)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:529)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:221)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1580)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:221)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1381)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:176)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:484)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1553)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:174)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1303)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:129)
+	at org.eclipse.jetty.server.handler.StatisticsHandler.handle(StatisticsHandler.java:173)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:122)
+	at org.eclipse.jetty.server.Server.handle(Server.java:563)
+	at org.eclipse.jetty.server.HttpChannel$RequestDispatchable.dispatch(HttpChannel.java:1598)
+	at org.eclipse.jetty.server.HttpChannel.dispatch(HttpChannel.java:753)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:501)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:287)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:314)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:100)
+	at org.eclipse.jetty.io.SelectableChannelEndPoint$1.run(SelectableChannelEndPoint.java:53)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.runTask(AdaptiveExecutionStrategy.java:421)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.consumeTask(AdaptiveExecutionStrategy.java:390)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.tryProduce(AdaptiveExecutionStrategy.java:277)
+	at org.eclipse.jetty.util.thread.strategy.AdaptiveExecutionStrategy.run(AdaptiveExecutionStrategy.java:199)
+	at org.eclipse.jetty.util.thread.ReservedThreadExecutor$ReservedThread.run(ReservedThreadExecutor.java:411)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:969)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.doRunJob(QueuedThreadPool.java:1194)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:1149)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2024-10-29 17:15:39 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 17:15:39 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 17:15:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 17:15:40 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7f6f61c8
+2024-10-29 17:15:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 17:15:40 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 17:15:40 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 17:15:40 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 17:15:40 [main] ERROR io.javalin.Javalin - Failed to start Javalin
+2024-10-29 17:15:40 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@56b1e527{STOPPING}[11.0.23,sto=0]
+2024-10-29 17:15:53 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.4.Final
+2024-10-29 17:15:53 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2024-10-29 17:15:53 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-10-29 17:15:53 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@52d645b1
+2024-10-29 17:15:53 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-29 17:15:53 [main] INFO  o.h.b.i.BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+2024-10-29 17:15:54 [main] INFO  io.javalin.Javalin - Starting Javalin ...
+2024-10-29 17:15:54 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 17.0.10+7-LTS
+2024-10-29 17:15:54 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-10-29 17:15:54 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@615e83ac{/api,null,AVAILABLE}
+2024-10-29 17:15:54 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@7f42b194{HTTP/1.1, (http/1.1)}{0.0.0.0:7070}
+2024-10-29 17:15:54 [main] INFO  org.eclipse.jetty.server.Server - Started Server@113dcaf8{STARTING}[11.0.23,sto=0] @920ms
+2024-10-29 17:15:54 [main] INFO  io.javalin.Javalin - Javalin started in 53ms \o/
+2024-10-29 17:15:54 [main] INFO  io.javalin.Javalin - Listening on http://localhost:7070/api
+2024-10-29 17:15:54 [main] INFO  io.javalin.Javalin - You are running Javalin 6.3.0 (released August 22, 2024).
+2024-10-29 17:15:58 [JettyServerThreadPool-26] ERROR d.c.impl.DoctorControllerDB - API Error in create: Name is required. Year of graduation must be after 1900. Clinic name is required.
