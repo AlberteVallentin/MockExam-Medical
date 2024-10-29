@@ -1,5 +1,6 @@
 package dat.controllers.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import dat.controllers.IController;
 import dat.daos.impl.DoctorMockDAO;
 import dat.dtos.DoctorDTO;
@@ -11,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,6 +24,7 @@ import java.util.List;
 public class DoctorMockController implements IController<DoctorDTO, Integer> {
     private static final Logger LOGGER = LoggerFactory.getLogger(DoctorMockController.class);
     private final DoctorMockDAO dao;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_DATE;
 
     // Initialize controller with DAO instance
     public DoctorMockController() {
@@ -28,33 +33,46 @@ public class DoctorMockController implements IController<DoctorDTO, Integer> {
 
     /**
      * Retrieves a specific doctor by their ID
+     *
      * @param ctx Javalin context containing the ID parameter
      * @throws ApiException with 404 if doctor not found
      */
     @Override
     public void read(Context ctx) {
         try {
-            // Extract and validate ID from path parameter
-            int id = ctx.pathParamAsClass("id", Integer.class)
-                .check(this::validatePrimaryKey, "Not a valid id")
-                .get();
+            // Parse and validate ID with better error handling
+            String idParam = ctx.pathParam("id");
+            int id;
+
+            try {
+                id = Integer.parseInt(idParam);
+                if (id <= 0) {
+                    throw new ApiException(400, "ID must be a positive number");
+                }
+            } catch (NumberFormatException e) {
+                throw new ApiException(400, "Invalid ID format: " + idParam);
+            }
 
             DoctorDTO doctorDTO = dao.read(id);
             if (doctorDTO == null) {
                 throw new ApiException(404, "Doctor not found with id: " + id);
             }
 
-            // Return successful response
-            ctx.status(200);
-            ctx.json(doctorDTO, DoctorDTO.class);
+            ctx.json(doctorDTO);
         } catch (ApiException e) {
+            LOGGER.error("API Error in read: {}", e.getMessage());
             ctx.status(e.getStatusCode());
             ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        } catch (Exception e) {
+            LOGGER.error("Unexpected error in read", e);
+            ctx.status(500);
+            ctx.json(new Message(500, "Internal server error"));
         }
     }
 
     /**
      * Retrieves all doctors in the system
+     *
      * @param ctx Javalin context for returning the response
      */
     @Override
@@ -71,49 +89,103 @@ public class DoctorMockController implements IController<DoctorDTO, Integer> {
 
     /**
      * Creates a new doctor
+     *
      * @param ctx Javalin context containing the doctor data in request body
-     * @throws ApiException with 400 if validation fails
+     */
+    /**
+     * Creates a new doctor
+     * @param ctx Javalin context containing the doctor data in request body
      */
     @Override
     public void create(Context ctx) {
         try {
-            // Validate request body and create new doctor
-            DoctorDTO jsonRequest = validateEntity(ctx);
-            DoctorDTO doctorDTO = dao.create(jsonRequest);
+            // Try to parse the request body to DoctorDTO
+            DoctorDTO newDoctor;
+            try {
+                newDoctor = ctx.bodyAsClass(DoctorDTO.class);
+            } catch (Exception e) {
+                // Handle any parsing errors (including invalid date format)
+                throw new ApiException(400, "Invalid input format. Please check your data format. Dates should be in yyyy-MM-dd format");
+            }
 
-            // Return created response
+            // Validate the parsed doctor data
+            if (newDoctor.getName() == null || newDoctor.getName().trim().isEmpty()) {
+                throw new ApiException(400, "Doctor name is required");
+            }
+            if (newDoctor.getDateOfBirth() == null) {
+                throw new ApiException(400, "Date of birth is required");
+            }
+            if (newDoctor.getYearOfGraduation() <= 1900) {
+                throw new ApiException(400, "Invalid graduation year");
+            }
+            if (newDoctor.getNameOfClinic() == null || newDoctor.getNameOfClinic().trim().isEmpty()) {
+                throw new ApiException(400, "Clinic name is required");
+            }
+            if (newDoctor.getSpeciality() == null) {
+                throw new ApiException(400, "Speciality is required");
+            }
+
+            // Create the doctor if validation passes
+            DoctorDTO createdDoctor = dao.create(newDoctor);
+
+            // Return 201 Created on success
             ctx.status(201);
-            ctx.json(doctorDTO, DoctorDTO.class);
+            ctx.json(createdDoctor);
+
         } catch (ApiException e) {
+            // Handle our custom API exceptions with 400 status
             ctx.status(e.getStatusCode());
             ctx.json(new Message(e.getStatusCode(), e.getMessage()));
         }
     }
-
     /**
      * Updates an existing doctor's information
+     *
      * @param ctx Javalin context containing the ID parameter and updated doctor data
-     * @throws ApiException if doctor not found or validation fails
      */
     @Override
     public void update(Context ctx) {
         try {
-            // Extract ID and validate updated doctor data
+            // Extract and validate ID
             int id = ctx.pathParamAsClass("id", Integer.class)
-                .check(this::validatePrimaryKey, "Not a valid id")
                 .get();
 
-            DoctorDTO doctorDTO = dao.update(id, validateEntity(ctx));
+            // Check if doctor exists
+            if (!validatePrimaryKey(id)) {
+                throw new ApiException(404, "Doctor with ID " + id + " not found");
+            }
+
+            // Validate update data
+            DoctorDTO updatedDoctor = validateEntity(ctx);
+
+            // Perform business validation
+            validateDoctorData(updatedDoctor);
+
+            // Attempt update
+            DoctorDTO result = dao.update(id, updatedDoctor);
+
+            if (result == null) {
+                throw new ApiException(404, "Doctor with ID " + id + " could not be updated");
+            }
+
+            // Return successful response
             ctx.status(200);
-            ctx.json(doctorDTO, DoctorDTO.class);
+            ctx.json(result);
+
         } catch (ApiException e) {
+            LOGGER.error("API Error in update: {}", e.getMessage());
             ctx.status(e.getStatusCode());
             ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        } catch (Exception e) {
+            LOGGER.error("Unexpected error in update", e);
+            ctx.status(500);
+            ctx.json(new Message(500, "An unexpected error occurred while updating the doctor"));
         }
     }
 
     /**
      * Deletes a doctor by their ID
+     *
      * @param ctx Javalin context containing the ID parameter
      */
     @Override
@@ -138,76 +210,122 @@ public class DoctorMockController implements IController<DoctorDTO, Integer> {
 
     /**
      * Finds doctors by their medical speciality
+     *
      * @param ctx Javalin context containing the speciality parameter
      * @throws ApiException with 404 if no doctors found with given speciality
      */
     public void readBySpeciality(Context ctx) {
         try {
-            Speciality speciality = ctx.pathParamAsClass("speciality", Speciality.class)
-                .check(s -> s != null, "Invalid speciality")
-                .get();
+            String specialityStr = ctx.pathParam("speciality").toUpperCase();
+            Speciality speciality;
+
+            try {
+                speciality = Speciality.valueOf(specialityStr);
+            } catch (IllegalArgumentException e) {
+                String validSpecialities = Arrays.toString(Speciality.values());
+                throw new ApiException(400, "Invalid speciality. Valid values are: " + validSpecialities);
+            }
 
             List<DoctorDTO> doctors = dao.doctorBySpeciality(speciality);
             if (doctors.isEmpty()) {
                 throw new ApiException(404, "No doctors found with speciality: " + speciality);
             }
 
-            ctx.status(200);
-            ctx.json(doctors, DoctorDTO.class);
+            ctx.json(doctors);
         } catch (ApiException e) {
+            LOGGER.error("API Error in readBySpeciality: {}", e.getMessage());
             ctx.status(e.getStatusCode());
             ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        } catch (Exception e) {
+            LOGGER.error("Unexpected error in readBySpeciality", e);
+            ctx.status(500);
+            ctx.json(new Message(500, "Internal server error"));
         }
     }
 
+
     /**
      * Finds doctors born within a specific date range
+     *
      * @param ctx Javalin context containing the date range parameters
      * @throws ApiException with 400 if date range is invalid
      * @throws ApiException with 404 if no doctors found in range
      */
     public void readByBirthdateRange(Context ctx) {
         try {
-            LocalDate from = ctx.queryParamAsClass("from", LocalDate.class)
-                .check(d -> d != null, "From date must be provided")
-                .get();
-            LocalDate to = ctx.queryParamAsClass("to", LocalDate.class)
-                .check(d -> d != null, "To date must be provided")
-                .get();
+            String fromStr = ctx.queryParam("from");
+            String toStr = ctx.queryParam("to");
 
-            if (from.isAfter(to)) {
+            if (fromStr == null || toStr == null) {
+                throw new ApiException(400, "Both 'from' and 'to' dates are required");
+            }
+
+            LocalDate fromDate;
+            LocalDate toDate;
+            try {
+                fromDate = LocalDate.parse(fromStr);
+                toDate = LocalDate.parse(toStr);
+            } catch (DateTimeParseException e) {
+                throw new ApiException(400, "Invalid date format. Use yyyy-MM-dd");
+            }
+
+            if (fromDate.isAfter(toDate)) {
                 throw new ApiException(400, "From date cannot be after to date");
             }
 
-            List<DoctorDTO> doctors = dao.doctorByBirthdateRange(from, to);
+            List<DoctorDTO> doctors = dao.doctorByBirthdateRange(fromDate, toDate);
             if (doctors.isEmpty()) {
-                throw new ApiException(404, "No doctors found in the specified date range");
+                throw new ApiException(404, String.format("No doctors found with birth dates between %s and %s", fromDate, toDate));
             }
 
-            ctx.status(200);
-            ctx.json(doctors, DoctorDTO.class);
+            ctx.json(doctors);
         } catch (ApiException e) {
+            LOGGER.error("API Error in readByBirthdateRange: {}", e.getMessage());
             ctx.status(e.getStatusCode());
             ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        } catch (Exception e) {
+            LOGGER.error("Unexpected error in readByBirthdateRange", e);
+            ctx.status(500);
+            ctx.json(new Message(500, "Internal server error"));
         }
     }
 
     /**
-     * Validates if a given doctor ID exists
-     * @param id The ID to validate
-     * @return true if the ID exists, false otherwise
+     * Validates doctor entity data
+     * Ensures all required fields are present and valid
      */
+    private void validateDoctorData(DoctorDTO doctor) throws ApiException {
+        if (doctor.getName() == null || doctor.getName().trim().isEmpty()) {
+            throw new ApiException(400, "Doctor name is required");
+        }
+        if (doctor.getDateOfBirth() == null) {
+            throw new ApiException(400, "Date of birth is required");
+        }
+        // Add date format validation
+        try {
+            String dateStr = doctor.getDateOfBirth().toString();
+            if (!dateStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                throw new ApiException(400, "Invalid date format. Please use format: yyyy-MM-dd");
+            }
+        } catch (Exception e) {
+            throw new ApiException(400, "Invalid date format. Please use format: yyyy-MM-dd");
+        }
+        if (doctor.getYearOfGraduation() <= 1900) {
+            throw new ApiException(400, "Invalid graduation year");
+        }
+        if (doctor.getNameOfClinic() == null || doctor.getNameOfClinic().trim().isEmpty()) {
+            throw new ApiException(400, "Clinic name is required");
+        }
+        if (doctor.getSpeciality() == null) {
+            throw new ApiException(400, "Speciality is required");
+        }
+    }
+
     @Override
     public boolean validatePrimaryKey(Integer id) {
         return dao.validatePrimaryKey(id);
     }
 
-    /**
-     * Validates doctor entity data from request body
-     * @param ctx Javalin context containing the doctor data
-     * @return Validated DoctorDTO object
-     * @throws ApiException if validation fails
-     */
     @Override
     public DoctorDTO validateEntity(Context ctx) {
         return ctx.bodyValidator(DoctorDTO.class)
