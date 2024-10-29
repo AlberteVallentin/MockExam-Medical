@@ -240,3 +240,36 @@ Below are the test results for each endpoint showing both successful and error r
 }
 ```
 
+
+# Task 3.2 - Purpose of Generics in this Exercise
+
+The use of generics in our DAO interface (IDAO<T, ID>) serves several important purposes:
+
+1. **Type Safety**:
+    - Generics ensure type safety at compile time
+    - Prevents runtime errors by catching type mismatches during development
+    - Eliminates the need for explicit type casting
+
+2. **Code Reusability**:
+    - The generic IDAO interface can be used with any entity type (T) and ID type (ID)
+    - We can reuse the same interface for different entities (Doctor, Appointment, etc.)
+    - Reduces code duplication by providing a common contract for all DAOs
+
+3. **Flexibility**:
+    - Allows for different ID types (Integer, Long, String, etc.)
+    - Can easily adapt to different entity types without changing the interface
+    - Future entities can implement the same interface without modification
+
+4. **Maintainability**:
+    - Single point of change for common DAO operations
+    - Consistent contract across all DAOs in the application
+    - Easier to test and debug due to consistent behavior
+
+Example in our application:
+```java
+// For DoctorDTO with Integer ID
+public class DoctorMockDAO implements IDAO<DoctorDTO, Integer> { ... }
+
+// Can be reused for Appointment with Long ID
+public class AppointmentDAO implements IDAO<AppointmentDTO, Long> { ... }
+
