@@ -3,6 +3,7 @@ package dat.utils;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import dat.exceptions.ApiException;
 import io.javalin.http.Context;
@@ -17,6 +18,14 @@ import java.util.Properties;
  * Purpose: Utility class for common functionality
  */
 public class Utils {
+
+    public ObjectMapper getObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // Ignore unknown properties in JSON
+        objectMapper.registerModule(new JavaTimeModule()); // Serialize and deserialize java.time objects
+        objectMapper.writer(new DefaultPrettyPrinter());
+        return objectMapper;
+    }
 
     public static String getPropertyValue(String propName, String resourceName) throws ApiException {
         try (InputStream is = Utils.class.getClassLoader().getResourceAsStream(resourceName)) {
@@ -36,14 +45,6 @@ public class Utils {
         } catch (IOException ex) {
             throw new ApiException(500, String.format("Could not read property %s: %s", propName, ex.getMessage()));
         }
-    }
-
-    public ObjectMapper getObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.writer(new DefaultPrettyPrinter());
-        return objectMapper;
     }
 
     public static String convertToJsonMessage(Context ctx, String property, String message) {
